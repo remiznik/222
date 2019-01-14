@@ -1,4 +1,4 @@
-INTEGER, PLUS, EOF = 'INTEGER', 'PLUS', 'EOF'
+INTEGER, OP, EOF = 'INTEGER', 'OP', 'EOF'
 
 class Token(object):
 
@@ -13,6 +13,12 @@ class Token(object):
     
     def __repr__(self):
         return self.__str__()
+
+def plus(a, b):
+    return a + b
+
+def minus(a, b):
+    return a - b
 
 class Interpreter(object):
 
@@ -41,7 +47,12 @@ class Interpreter(object):
             return token
         
         if current_char == '+':
-            token = Token(PLUS, current_char)
+            token = Token(OP, plus)
+            self.pos += 1
+            return token
+        
+        if current_char == '-':
+            token = Token(OP, minus)
             self.pos += 1
             return token
 
@@ -62,12 +73,12 @@ class Interpreter(object):
         self.eat(INTEGER)
 
         op = self.current_token
-        self.eat(PLUS)
+        self.eat(OP)
 
         right = self.current_token
         self.eat(INTEGER)
 
-        result = left.value + right.value
+        result = op.value(left.value, right.value)
         return result
 
 def main():
