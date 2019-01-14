@@ -59,6 +59,10 @@ class Interpreter(object):
             token = Token(OP, minus)
             self.pos += 1
             return token
+        
+        if current_char == ' ':
+            self.pos += 1
+            return self.get_next_token()
 
         self.error()
     
