@@ -1,1 +1,15 @@
-https://ruslanspivak.com/lsbasi-part1/
+https://ruslanspivak.com/lsbasi-part1/ // неплохое начал 
+
+
+// посмотреть
+
+// статьи 
+https://blog.usejournal.com/writing-your-own-programming-language-and-compiler-with-python-a468970ae6df
+http://www.wilfred.me.uk/blog/2014/08/27/baby-steps-to-a-c-compiler/
+https://norasandler.com/2017/11/29/Write-a-Compiler.html
+https://compilers.iecc.com/crenshaw/ 
+
+// видео
+https://www.lektorium.tv/lecture/13894
+https://www.youtube.com/watch?v=tSwITbXRe8M
+https://www.youtube.com/watch?v=LDDRn2f9fUk
