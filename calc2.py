@@ -1,4 +1,4 @@
-INTEGERR, PLUS, MINUS, EOF = 'INTEGER', 'PLUS', 'MINUS', 'EOF'
+INTEGER, PLUS, MINUS, MUL, EOF = 'INTEGER', 'PLUS', 'MINUS', 'MUL', 'EOF'
 
 class Token(object):
     def __init__(self, type, value):
@@ -61,7 +61,7 @@ class Interpreter(object):
                 continue
             
             if self.current_char.isdigit():
-                return Token(INTEGERR, self.integer())
+                return Token(INTEGER, self.integer())
             
             if self.current_char == '+':
                 self.advance()
@@ -70,6 +70,10 @@ class Interpreter(object):
             if self.current_char == '-':
                 self.advance()
                 return Token(MINUS, '-')
+            
+            if self.current_char == '*':
+                self.advance()
+                return Token(MUL, '*')
             
             self.error()
 
@@ -85,24 +89,26 @@ class Interpreter(object):
     def expr(self):
 
         self.current_token = self.get_next_token()
+        result = 0
+        while self.current_token.type is not EOF:
+            left = self.current_token
+            self.eat(INTEGER)
 
-        left = self.current_token
-        self.eat(INTEGERR)
+            if self.current_token.type is not EOF:
+                op = self.current_token
 
-        op = self.current_token
-        if op.type == PLUS:
-            self.eat(PLUS)
-        else:
-            self.eat(MINUS)
-        
-        right = self.current_token
-        self.eat(INTEGERR)
+                if op.type == PLUS:
+                    self.eat(PLUS)
+                elif op.type == MUL:
+                    self.eat(MUL)
+                else:
+                    self.eat(MINUS)
 
-        if op.type == PLUS:
-            result = left.value + right.value
-        else:
-            result = left.value - right.value
-        
+            if op.type == PLUS:
+                result += left.value
+            else:
+                result -= left.value
+            
         return result
 
 def main():
