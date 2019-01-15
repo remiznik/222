@@ -89,20 +89,22 @@ class Interpreter(object):
     def expr(self):
 
         self.current_token = self.get_next_token()
-        result = 0
+        result = self.current_token.value
+        self.eat(INTEGER)
+
         while self.current_token.type is not EOF:
+
+            op = self.current_token
+
+            if op.type == PLUS:
+                self.eat(PLUS)
+            elif op.type == MUL:
+                self.eat(MUL)
+            else:
+                self.eat(MINUS)
+
             left = self.current_token
             self.eat(INTEGER)
-
-            if self.current_token.type is not EOF:
-                op = self.current_token
-
-                if op.type == PLUS:
-                    self.eat(PLUS)
-                elif op.type == MUL:
-                    self.eat(MUL)
-                else:
-                    self.eat(MINUS)
 
             if op.type == PLUS:
                 result += left.value
