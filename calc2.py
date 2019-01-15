@@ -86,31 +86,28 @@ class Interpreter(object):
         else:
             self.error()
     
+    def term(self):
+
+        token = self.current_token
+        self.eat(INTEGER)
+        return token.value
+    
     def expr(self):
 
         self.current_token = self.get_next_token()
-        result = self.current_token.value
-        self.eat(INTEGER)
 
-        while self.current_token.type is not EOF:
+        result = self.term()
+        
+        while self.current_token.type in (PLUS, MINUS):
 
-            op = self.current_token
+            token = self.current_token
 
-            if op.type == PLUS:
+            if token.type == PLUS:
                 self.eat(PLUS)
-            elif op.type == MUL:
-                self.eat(MUL)
-            else:
+                result += self.term()
+            elif token.type == MINUS:
                 self.eat(MINUS)
-
-            left = self.current_token
-            self.eat(INTEGER)
-
-            if op.type == PLUS:
-                result += left.value
-            else:
-                result -= left.value
-            
+                result -= self.term()
         return result
 
 def main():
