@@ -58,9 +58,18 @@ class Lexer(object):
             if self.current_char == "/":
                 self.advance()
                 return Token(DIV, '/')
-            
+
+            if self.current_char == "+":
+                self.advance()
+                return Token(PLUS, "+")
+
+            if self.current_char == "-":
+                self.advance()
+                return Token(MINUS, "-")
+
             self.error()
         return Token(EOF, None)
+
 
 class Inter(object):
 
@@ -84,25 +93,33 @@ class Inter(object):
         self.eat(INT)
         return token.value
 
-    # def term(self):
-
-    #     result = 0
-    #     if self.current_token.type == MUL:
-
-    
-    def expr(self):
+    def term(self):
 
         result = self.factor()
-
         while self.current_token.type in (MUL, DIV):
             token = self.current_token
             if token.type == MUL:
                 self.eat(MUL)
                 result = result * self.factor()
-            
             if token.type == DIV:
                 self.eat(DIV)
                 result = result / self.factor()
+        
+        return result
+    
+    def expr(self):
+
+        result = self.term()
+
+        while self.current_token.type in (MINUS, PLUS):
+            token = self.current_token
+            if token.type == MINUS:
+                self.eat(MUL)
+                result = result - self.term()
+            
+            if token.type == PLUS:
+                self.eat(PLUS)
+                result = result + self.term()
 
         return result
             
