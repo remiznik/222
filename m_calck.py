@@ -1,4 +1,4 @@
-INT, PLUS, MINUS, MUL, DIV, EOF = "INT", "PLUS", "MUNUS", "MUL", "DIV", "EOF"
+INT, PLUS, MINUS, MUL, DIV, LEFT, RIGHT,  EOF = "INT", "PLUS", "MINUS", "MUL", "DIV", "LEFT", "RIGHT", "EOF"
 
 class Token(object):
 
@@ -66,6 +66,14 @@ class Lexer(object):
             if self.current_char == "-":
                 self.advance()
                 return Token(MINUS, "-")
+            
+            if self.current_char == "(":
+                self.advance()
+                return Token(LEFT, "(")
+
+            if self.current_char == ")":
+                self.advance()
+                return Token(RIGHT, ")")
 
             self.error()
         return Token(EOF, None)
@@ -106,20 +114,31 @@ class Inter(object):
                 result = result / self.factor()
         
         return result
+
+    def bracket(self):
+
+        result = self.term()
+
+        while self.current_token.type in (RIGHT, LEFT):
+            token = self.current_token
+            if token.type == LEFT:
+                result = self.term()
+            if token.type == RIGHT:
+                return result
     
     def expr(self):
 
-        result = self.term()
+        result = self.bracket()
 
         while self.current_token.type in (MINUS, PLUS):
             token = self.current_token
             if token.type == MINUS:
                 self.eat(MUL)
-                result = result - self.term()
+                result = result - self.bracket()
             
             if token.type == PLUS:
                 self.eat(PLUS)
-                result = result + self.term()
+                result = result + self.bracket()
 
         return result
             
