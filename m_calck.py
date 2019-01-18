@@ -103,45 +103,46 @@ class Inter(object):
 
     def term(self):
 
-        result = self.factor()
+        result = self.bracket()
         while self.current_token.type in (MUL, DIV):
             token = self.current_token
             if token.type == MUL:
                 self.eat(MUL)
-                result = result * self.factor()
+                result = result * self.bracket()
             if token.type == DIV:
                 self.eat(DIV)
-                result = result / self.factor()
+                result = result / self.bracket()
         
         return result
 
     def bracket(self):
 
-        result = self.term()
-
         while self.current_token.type in (RIGHT, LEFT):
             token = self.current_token
             if token.type == LEFT:
-                result = self.term()
+                self.eat(LEFT)
+                result = self.expr()
             if token.type == RIGHT:
+                self.eat(RIGHT)
                 return result
+        
+        return self.factor()
     
     def expr(self):
 
-        result = self.bracket()
+        result = self.term()
 
         while self.current_token.type in (MINUS, PLUS):
             token = self.current_token
             if token.type == MINUS:
                 self.eat(MUL)
-                result = result - self.bracket()
+                result = result - self.term()
             
             if token.type == PLUS:
                 self.eat(PLUS)
-                result = result + self.bracket()
+                result = result + self.term()
 
-        return result
-            
+        return result        
 
 
 
