@@ -1,4 +1,7 @@
-INTEGER, PLUS, MINUS, DIV, LPAREN, RPAREN, EOF = ('INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', '(', ')', 'EOF')
+INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF = (
+    'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', '(', ')', 'EOF'
+)
+
 
 class Token(object):
     def __init__(self, type, value):
@@ -69,7 +72,7 @@ class Lexer(object):
 
             if self.current_char == '*':
                 self.advance()
-                return Token(DIV, '*')
+                return Token(MUL, '*')
 
             if self.current_char == '/':
                 self.advance()
@@ -127,7 +130,7 @@ class Parser(object):
     
     def factor(self):
 
-        token = self.currnet_token 
+        token = self.current_token 
         if token.type == INTEGER:
             self.eat(INTEGER)
             return Num(token)
@@ -146,7 +149,7 @@ class Parser(object):
             token = self.current_token
             if token.type == MUL:
                 self.eat(MUL)
-            elif:
+            elif token.type == DIV:
                 self.eat(DIV)
 
             node = BinOp(left=node, op=token, right=self.factor())
@@ -168,7 +171,7 @@ class Parser(object):
 
         return node
 
-    def parser(self):
+    def parse(self):
 
         return self.expr()
 
@@ -177,3 +180,54 @@ class NodeVisitor(object):
 
     def visit(self, node):
         
+        method_name = 'visit_' + type(node).__name__
+        visitor = getattr(self, method_name, self.generic_visit)
+        return visitor(node)
+
+    def generic_visit(self, node):
+
+        raise Exception('No visist_{} method'.format(type(node).__name__))
+
+class Interpreter(NodeVisitor):
+    def __init__(self, parser):
+        self.parser = parser
+
+    def visit_BinOp(self, node):
+        if node.op.type == PLUS:
+            return self.visit(node.left) + self.visit(node.right)
+        elif node.op.type == MINUS:
+            return self.visit(node.left) - self.visit(node.right)
+        elif node.op.type == MUL:
+            return self.visit(node.left) * self.visit(node.right)
+        elif node.op.type == DIV:
+            return self.visit(node.left) / self.visit(node.right)
+
+    def visit_Num(self, node):
+        return node.value
+
+    def interpret(self):
+        tree = self.parser.parse()
+        return self.visit(tree)
+
+
+def main():
+    while True:
+        try:
+            try:
+                text = raw_input('spi> ')
+            except NameError:  # Python3
+                text = input('spi> ')
+        except EOFError:
+            break
+        if not text:
+            continue
+
+        lexer = Lexer(text)
+        parser = Parser(lexer)
+        interpreter = Interpreter(parser)
+        result = interpreter.interpret()
+        print(result)
+
+
+if __name__ == '__main__':
+    main()
