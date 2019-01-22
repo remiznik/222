@@ -108,4 +108,72 @@ class Num(AST):
         self.token = token 
         self.value = token.value
 
+class Parser(object):
+
+    def __init__(self, lexer):
+
+        self.lexer = lexer 
+        self.current_token = self.lexer.get_next_token()
+
+    def error(self):
+        raise Exception("Invalid sysntax")
     
+    def eat(self, token_type):
+
+        if self.current_token.type == token_type:
+            self.current_token = self.lexer.get_next_token()
+        else:
+            self.error()
+    
+    def factor(self):
+
+        token = self.currnet_token 
+        if token.type == INTEGER:
+            self.eat(INTEGER)
+            return Num(token)
+        elif token.type == LPAREN:
+            self.eat(LPAREN)
+            node = self.expr()
+            self.eat(RPAREN)
+            return node
+
+    def term(self):
+
+        node = self.factor()
+
+        while self.current_token.type is (MUL, DIV):
+            
+            token = self.current_token
+            if token.type == MUL:
+                self.eat(MUL)
+            elif:
+                self.eat(DIV)
+
+            node = BinOp(left=node, op=token, right=self.factor())
+        
+        return node
+    
+    def expr(self):
+
+        node = self.term()
+
+        while self.current_token.type in (PLUS, MINUS):
+            token = self.current_token
+            if token.type == PLUS:
+                self.eat(PLUS)
+            elif token.type == MINUS:
+                self.eat(MINUS)
+            
+            node = BinOp(left=node, op=token, right=self.term())
+
+        return node
+
+    def parser(self):
+
+        return self.expr()
+
+
+class NodeVisitor(object):
+
+    def visit(self, node):
+        
