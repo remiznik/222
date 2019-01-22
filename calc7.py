@@ -144,7 +144,7 @@ class Parser(object):
 
         node = self.factor()
 
-        while self.current_token.type is (MUL, DIV):
+        while self.current_token.type in (MUL, DIV):
             
             token = self.current_token
             if token.type == MUL:
