@@ -223,11 +223,12 @@ class Interpreter(NodeVisitor):
         return printVisit(node)
 
     def printNode_BinOp(self, node):        
-        return node.op.value + self.printNode(node.left) + self.printNode(node.right)
-        if 
+        return  self.printNode(node.left) + self.printNode(node.right) + node.op.value
+
 
     def printNode_Num(self, node):
         return str(node.value)
+
 
     def interpret(self):
         tree = self.parser.parse()
