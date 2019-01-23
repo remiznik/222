@@ -154,7 +154,7 @@ class Parser(object):
             return node
         elif token.type == MINUS:
             self.eat(MINUS)
-            node = UnaryOp(token, self.factor)
+            node = UnaryOp(token, self.factor())
             return node
         elif token.type == INTEGER:
             self.eat(INTEGER)
