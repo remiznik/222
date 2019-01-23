@@ -1,4 +1,4 @@
-https://ruslanspivak.com/lsbasi-part4/ // good introduce 
+https://ruslanspivak.com/lsbasi-part7/ // good introduce 
 
 
 

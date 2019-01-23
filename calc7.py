@@ -12,7 +12,7 @@ class Token(object):
 
         return 'Token({type}, {value})'.format(type=self.type, value=repr(self.value))
 
-    def __reper__(self):
+    def __repr__(self):
 
         return self.__str__()
     
@@ -104,12 +104,22 @@ class BinOp(AST):
         self.token = self.op = op
         self.right = right
 
+    def __str__(self):
+
+        return '{type}'.format(type=self.op.value)
+
 class Num(AST):
 
     def __init__(self, token):
         
+        self.left = None
+        self.right = None
         self.token = token 
         self.value = token.value
+    
+    def __str__(self):
+
+        return '{type}'.format(type=self.value)  
 
 class Parser(object):
 
@@ -205,8 +215,24 @@ class Interpreter(NodeVisitor):
     def visit_Num(self, node):
         return node.value
 
+
+    def printNode(self, node):
+        
+        method_name = 'printNode_' + type(node).__name__
+        printVisit = getattr(self, method_name, self.generic_visit)
+        return printVisit(node)
+
+    def printNode_BinOp(self, node):        
+        return node.op.value + self.printNode(node.left) + self.printNode(node.right)
+        if 
+
+    def printNode_Num(self, node):
+        return str(node.value)
+
     def interpret(self):
         tree = self.parser.parse()
+        rj = self.printNode(tree)
+        print(rj)
         return self.visit(tree)
 
 
