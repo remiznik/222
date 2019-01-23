@@ -229,11 +229,27 @@ class Interpreter(NodeVisitor):
     def printNode_Num(self, node):
         return str(node.value)
 
+    
+    def lispNode(self, node):
+        
+        method_name = 'lispNode_' + type(node).__name__
+        printVisit = getattr(self, method_name, self.generic_visit)
+        return printVisit(node)
+
+    def lispNode_BinOp(self, node):        
+        return  "(" + node.op.value +  self.lispNode(node.left) + self.lispNode(node.right) + ")"
+
+
+    def lispNode_Num(self, node):
+        return str(node.value)
+
 
     def interpret(self):
         tree = self.parser.parse()
         rj = self.printNode(tree)
         print(rj)
+        lst = self.lispNode(tree)
+        print(lst)
         return self.visit(tree)
 
 
