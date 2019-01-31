@@ -16,7 +16,7 @@ class Token(object):
 
         return self.__str__()
 
-RESERVED_KEYWORDS = { 'BEGIN' : Token('BEGIN', 'BEGIN'), 'END': Token('END', 'END')}
+RESERVED_KEYWORDS = { 'BEGIN' : Token('BEGIN', 'BEGIN'), 'END': Token('END', 'END'), 'DIV' : Token(DIV, '/')}
 
 class Lexer(object):
 
@@ -122,7 +122,7 @@ class Lexer(object):
             result += self.current_char
             self.advance()
         
-        token = RESERVED_KEYWORDS.get(result, Token(ID, result))
+        token = RESERVED_KEYWORDS.get(result.upper(), Token(ID, result))
         return token
 
 class AST(object):
@@ -445,14 +445,14 @@ if __name__ == '__main__':
     #     token = lexer.get_next_token()
     text = """
     BEGIN
-        BEGIN
+        BeGiN
             number := 2;
             a := number;
-            b := 10 * a + 10 * number / 4;
+            b := 10 * a + 10 * number div 4;
             c := a - - b
-        END;
+        EnD;
         x := 11;
-    END.
+    end.
     """
     lexer = Lexer(text)
     parser = Parser(lexer)
