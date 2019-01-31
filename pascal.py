@@ -282,6 +282,9 @@ class Parser(object):
             node = self.expr()
             self.eat(RPAREN)
             return node
+        else:
+            node = self.variable()
+            return node
 
     def term(self):
 
@@ -316,7 +319,10 @@ class Parser(object):
 
     def parse(self):
 
-        return self.expr()
+        node = self.program()
+        if self.current_token.type != EOF:
+            self.error()
+        return node
 
 
 class NodeVisitor(object):
