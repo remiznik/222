@@ -13,8 +13,6 @@ class Token(object):
 
         return self.__str__()
 
-RESERVED_KEYWORDS = { 'BEGIN' : Token('BEGIN', 'BEGIN'), 'END': Token('END', 'END')}
-
 class Lexer(object):
 
     def __init__(self, text):
@@ -40,6 +38,12 @@ class Lexer(object):
         while self.current_char is not None and self.current_char.isspace():
             self.advance()
 
+    def skip_comment(self):
+        while self.current_char != '}':
+            self.advance()
+        
+        self.advance()
+
     def integer(self):
 
         result = ''
@@ -47,7 +51,20 @@ class Lexer(object):
             result += self.current_char
             self.advance()
 
-        return int(result)
+        if self.current_char == '.':
+            result += self.current_char
+            self.advance()
+
+            while (self.current_char is not None and self.current_char.isdigit()):
+                result += self.current_char
+                self.advance()
+
+            token = Token('REAL_CONST', float(result))
+        else:
+            token = Token('INTEGER_CONST', int(result))
+        
+        return token
+
 
     def peek(self):
         peek_pos = self.pos + 1
