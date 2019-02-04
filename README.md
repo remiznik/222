@@ -19,3 +19,6 @@ https://ruslanspivak.com/lsbasi-part7/ // good introduce
 
 #other
 * https://www.youtube.com/watch?v=-9c095aXc-s&t=11149s
+
+#books
+* https://doc.lagout.org/programmation/Pragmatic%20Programmers/Language%20Implementation%20Patterns.pdf
