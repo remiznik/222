@@ -16,3 +16,6 @@ https://ruslanspivak.com/lsbasi-part7/ // good introduce
 * https://www.lektorium.tv/lecture/13894
 * https://www.youtube.com/watch?v=tSwITbXRe8M
 * https://www.youtube.com/watch?v=LDDRn2f9fUk
+
+#other
+* https://www.youtube.com/watch?v=-9c095aXc-s&t=11149s
