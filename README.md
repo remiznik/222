@@ -1,4 +1,4 @@
-https://ruslanspivak.com/lsbasi-part7/ // good introduce 
+https://ruslanspivak.com/lsbasi-part10/ // good introduce 
 
 
 
@@ -16,3 +16,6 @@ https://ruslanspivak.com/lsbasi-part7/ // good introduce
 * https://www.lektorium.tv/lecture/13894
 * https://www.youtube.com/watch?v=tSwITbXRe8M
 * https://www.youtube.com/watch?v=LDDRn2f9fUk
+
+#books
+* http://linux-doc.ru/programming/assembler/book/compilers.pdf

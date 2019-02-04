@@ -55,5 +55,30 @@ class Assign(AST):
         self.right = right 
         self.token = self.op = op
 
+class Program(AST):
+
+    def __init__(self, name, block):
+        self.name = name
+        self.block = block
+    
+class Block(AST):
+
+    def __init__(self, declarations, compound_statement):
+        self.declarations = declarations
+        self.compound_statement = compound_statement
+
+class VarDec(AST):
+
+    def __init__(self, var_node, type_node):
+        self.var_node = var_node
+        self.type_node = type_node
+    
+class Type(AST):
+
+    def __init__(self, token):
+        self.token = token
+        self.value = token.value
+    
+    
 
 
