@@ -1,4 +1,4 @@
-https://ruslanspivak.com/lsbasi-part7/ // good introduce 
+https://ruslanspivak.com/lsbasi-part10/ // good introduce 
 
 
 
@@ -22,3 +22,4 @@ https://ruslanspivak.com/lsbasi-part7/ // good introduce
 
 #books
 * https://doc.lagout.org/programmation/Pragmatic%20Programmers/Language%20Implementation%20Patterns.pdf
+* http://linux-doc.ru/programming/assembler/book/compilers.pdf

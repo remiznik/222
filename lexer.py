@@ -81,8 +81,13 @@ class Lexer(object):
                 self.skip_whitespace()
                 continue
             
+            if self.current_char == '{':
+                self.advance()
+                self.skip_comment()
+                continue
+            
             if self.current_char.isdigit():
-                return Token(INTEGER, self.integer())
+                return self.number()
             
             if self.current_char.isalpha():
                 return self._id()
@@ -112,10 +117,6 @@ class Lexer(object):
                 self.advance()
                 return Token(MUL, '*')
 
-            if self.current_char == '/':
-                self.advance()
-                return Token(DIV, '/')
-
             if self.current_char == '(':
                 self.advance()
                 return Token(LPAREN, '(')
@@ -123,6 +124,18 @@ class Lexer(object):
             if self.current_char == ')':
                 self.advance()
                 return Token(RPAREN, ')')
+            
+            if self.current_char == ':':
+                self.advance()
+                return Token(COLON, ':')
+            
+            if self.current_char == ',':
+                self.advance()
+                return Token(COMMA, ',')
+
+            if self.current_char == '/':
+                self.advance()
+                return Token(FLOAT_DIV, '/')
             
             self.error()
         
