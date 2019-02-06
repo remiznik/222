@@ -136,6 +136,42 @@ class Parser(object):
 
         return node
 
+    def block(self):
+
+        declaration_nodes = self.declarations()
+        compound_statement_node = self.compound_statement()
+        node = Block(declaration_nodes, compound_statement_node )
+        return node 
+    
+    def declarations(self):
+
+        declarations = []
+        if self.current_token.type = VAR:
+            self.eat(VAR)
+            while self.current_token.type == ID:
+                var_decl = self.variable_declaration()
+                declarations.extend(var_decl)
+                self.eat(SEMI)
+        return declarations
+
+    def variable_declaration(self):
+
+        var_nodes = [Var(self.current_token)]
+        self.eat(ID)
+
+        while self.current_token == COMMA:
+            self.eat(COMMA)
+            var_nodes.append(Var(self.current_token))
+            self.eat(ID)
+
+        self.eat(COLOM)
+
+        type_node = self.type_spec()
+        var_declarations = [
+            VarDec(var_node, type_node)
+            for var_node in var_nodes
+        ]
+        return var_declarations
     def parse(self):
 
         node = self.program()
