@@ -1,4 +1,4 @@
-from ast import *
+from ast1 import *
 from consts import *
 
 

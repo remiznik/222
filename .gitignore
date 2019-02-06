@@ -5,3 +5,9 @@ __pycache__/modul.cpython-37.pyc
 __pycache__/parser1.cpython-37.pyc
 __pycache__/token.cpython-37.pyc
 __pycache__/lexer.cpython-37.pyc
+__pycache__/ast.cpython-35.pyc
+__pycache__/ast1.cpython-35.pyc
+__pycache__/consts.cpython-35.pyc
+__pycache__/interpret.cpython-35.pyc
+__pycache__/lexer.cpython-35.pyc
+__pycache__/parser1.cpython-35.pyc

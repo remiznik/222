@@ -30,14 +30,14 @@ if __name__ == '__main__':
     #     token = lexer.get_next_token()
     text = """
     BEGIN
-        BeGiN
+        BEGIN
             number := 2;
             a := number;
             b := 10 * a + 10 * number / 4;
             c := a - - b
-        EnD;
+        END;
         x := 11;
-    end.
+    END.
     """
     lexer = lexer.Lexer(text)
     parser = parser1.Parser(lexer)
