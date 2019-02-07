@@ -20,11 +20,16 @@ class Parser(object):
             self.error()
 
     def program(self):
-
-        node = self.compound_statement()
+        
+        self.eat(PROGRAM)
+        var_node = self.variable()
+        prog_name = var_node.value
+        self.eat(SEMI)
+        block_node = self.block()
+        program_node = Program(prog_name, block_node)
         self.eat(DOT)
-        return node
-    
+        return program_node
+
     def compound_statement(self):
 
         self.eat(BEGIN)
@@ -83,8 +88,14 @@ class Parser(object):
 
 
     def factor(self):
-
-        token = self.current_token 
+        """factor : PLUS factor
+                | MINUS factor
+                | INTEGER_CONST
+                | REAL_CONST
+                | LPAREN expr RPAREN
+                | variable
+        """
+        token = self.current_token
         if token.type == PLUS:
             self.eat(PLUS)
             node = UnaryOp(token, self.factor())
@@ -93,8 +104,11 @@ class Parser(object):
             self.eat(MINUS)
             node = UnaryOp(token, self.factor())
             return node
-        elif token.type == INTEGER:
-            self.eat(INTEGER)
+        elif token.type == INTEGER_CONST:
+            self.eat(INTEGER_CONST)
+            return Num(token)
+        elif token.type == REAL_CONST:
+            self.eat(REAL_CONST)
             return Num(token)
         elif token.type == LPAREN:
             self.eat(LPAREN)
@@ -103,23 +117,25 @@ class Parser(object):
             return node
         else:
             node = self.variable()
-            return node
+        return node
 
     def term(self):
 
         node = self.factor()
 
-        while self.current_token.type in (MUL, DIV):
-            
-            token = self.current_token
+        while self.current_token.type in (MUL, INTEGER_DIV, FLOAT_DIV):
+            token = self.current_token 
             if token.type == MUL:
                 self.eat(MUL)
-            elif token.type == DIV:
-                self.eat(DIV)
+            elif token.type == INTEGER_DIV:
+                self.eat(INTEGER_DIV)
+            elif token.type == FLOAT_DIV:
+                self.eat(FLOAT_DIV)
 
-            node = BinOp(left=node, op=token, right=self.factor())
+            node = BinOp(left = node, op = token, right = self.factor())
         
         return node
+        
     
     def expr(self):
 
@@ -172,6 +188,17 @@ class Parser(object):
             for var_node in var_nodes
         ]
         return var_declarations
+
+    def type_spec(self):
+
+        token = self.current_token
+        if self.current_token == INTEGER:
+            self.eat(INTEGER)
+        else:
+            self.eat(REAL)
+        node = Type(token)
+        return node
+
     def parse(self):
 
         node = self.program()
