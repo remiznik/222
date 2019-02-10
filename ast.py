@@ -67,7 +67,7 @@ class Block(AST):
         self.declarations = declarations
         self.compound_statement = compound_statement
 
-class VarDec(AST):
+class VarDecl(AST):
 
     def __init__(self, var_node, type_node):
         self.var_node = var_node

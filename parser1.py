@@ -162,7 +162,7 @@ class Parser(object):
     def declarations(self):
 
         declarations = []
-        if self.current_token.type = VAR:
+        if self.current_token.type == VAR:
             self.eat(VAR)
             while self.current_token.type == ID:
                 var_decl = self.variable_declaration()
@@ -175,16 +175,16 @@ class Parser(object):
         var_nodes = [Var(self.current_token)]
         self.eat(ID)
 
-        while self.current_token == COMMA:
+        while self.current_token.type == COMMA:
             self.eat(COMMA)
             var_nodes.append(Var(self.current_token))
             self.eat(ID)
 
-        self.eat(COLOM)
+        self.eat(COLON)
 
         type_node = self.type_spec()
         var_declarations = [
-            VarDec(var_node, type_node)
+            VarDecl(var_node, type_node)
             for var_node in var_nodes
         ]
         return var_declarations
@@ -192,7 +192,7 @@ class Parser(object):
     def type_spec(self):
 
         token = self.current_token
-        if self.current_token == INTEGER:
+        if self.current_token.type == INTEGER:
             self.eat(INTEGER)
         else:
             self.eat(REAL)
