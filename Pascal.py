@@ -1,6 +1,6 @@
-import lexer    
+import Lexer    
 import Parser
-import interpret
+import Interpret
 
 def main():
     while True:
@@ -54,8 +54,8 @@ if __name__ == '__main__':
         x := 11;
         y := 20 / 7 + 3.14;
     END."""
-    lexer = lexer.Lexer(text)
+    lexer = Lexer.Lexer(text)
     parser = Parser.Parser(lexer)
-    interpreter = interpret.Interpreter(parser)
+    interpreter = Interpret.Interpreter(parser)
     interpreter.interpret()
     print(interpreter.GLOBAL_SCOPE)

@@ -1,5 +1,5 @@
-from ast1 import *
-from consts import *
+from Ast import *
+from Consts import *
 
 
 class Parser(object):

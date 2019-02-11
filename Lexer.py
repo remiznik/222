@@ -1,4 +1,4 @@
-from consts import *
+from Consts import *
 
 class Lexer(object):
 

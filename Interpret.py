@@ -1,4 +1,5 @@
-from consts import *
+from Consts import *
+
 class NodeVisitor(object):
 
     def visit(self, node):
