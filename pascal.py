@@ -1,5 +1,5 @@
 import lexer    
-import parser1
+import Parser
 import interpret
 
 def main():
@@ -55,7 +55,7 @@ if __name__ == '__main__':
         y := 20 / 7 + 3.14;
     END."""
     lexer = lexer.Lexer(text)
-    parser = parser1.Parser(lexer)
+    parser = Parser.Parser(lexer)
     interpreter = interpret.Interpreter(parser)
     interpreter.interpret()
     print(interpreter.GLOBAL_SCOPE)

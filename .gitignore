@@ -12,3 +12,5 @@ __pycache__/interpret.cpython-35.pyc
 __pycache__/lexer.cpython-35.pyc
 __pycache__/parser1.cpython-35.pyc
 __pycache__/ast1.cpython-37.pyc
+__pycache__/Parser.cpython-37.pyc
+.vscode/settings.json
