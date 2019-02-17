@@ -1,4 +1,5 @@
 from Consts import *
+import symbol_table
 
 class NodeVisitor(object):
 
@@ -11,6 +12,36 @@ class NodeVisitor(object):
     def generic_visit(self, node):
 
         raise Exception('No visist_{} method'.format(type(node).__name__))
+
+class SymbolTableBuilder(NodeVisitor):
+    def __init__(self):
+        self.symtab = symbol_table.SymbolTable()
+    
+    def visit_Block(self, node):
+        for declaration in node.declarations:
+            self.visit(declaration)
+        
+        self.visit(node.compound_statement)
+
+    def visit_Program(self, node):
+        self.visit(node.block)
+    
+    def visit_BinOp(self, node):
+        self.visit(node.left)
+        self.visit(node.right)
+
+    def visit_Num(self, node):
+        pass
+
+    def visit_UnaryOp(self, node):
+        self.visit(node.expr)
+    
+    def visit_Compound(self, node):
+        for child in node.children:
+            self.visit(child)
+
+    def visit_NoOp(self, node):
+        pass
 
 class Interpreter(NodeVisitor):
     def __init__(self, parser):
