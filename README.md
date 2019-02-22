@@ -8,6 +8,7 @@ https://ruslanspivak.com/lsbasi-part10/ // good introduce
 * http://www.wilfred.me.uk/blog/2014/08/27/baby-steps-to-a-c-compiler/
 * https://norasandler.com/2017/11/29/Write-a-Compiler.html
 * https://compilers.iecc.com/crenshaw/ 
+* http://craftinginterpreters.com/
 
 # tools
 * https://preshing.com/20170511/how-to-build-a-cmake-based-project/
@@ -23,3 +24,6 @@ https://ruslanspivak.com/lsbasi-part10/ // good introduce
 #books
 * https://doc.lagout.org/programmation/Pragmatic%20Programmers/Language%20Implementation%20Patterns.pdf
 * http://linux-doc.ru/programming/assembler/book/compilers.pdf
+
+#intresing
+* https://github.com/sdmg15/Best-websites-a-programmer-should-visit#building-a-simple-compilerinterpreter
