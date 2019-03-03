@@ -42,6 +42,28 @@ class SymbolTableBuilder(NodeVisitor):
 
     def visit_NoOp(self, node):
         pass
+    
+    def vistit_VarDecl(self, node):
+        type_name = node.type_node.value
+        type_symbol = self.symtab.lookup(type_name)
+        var_name = node.var_node.value
+        var_symbol = symbol_table.VarSymbol(var_name, type_symbol)
+        self.symtab.define(var_symbol)
+    
+    def visit_Assign(self, node):
+        var_name = node.left.value
+        var_symbol = self.symtab.lookup(var_name)
+        if var_symbol is None:
+            raise NameError(repr(var_name))
+        
+        self.visit(node.right)
+    
+    def visit_Var(self, node):
+        var_name = node.value
+        var_symbol = self.symtab.lookup(var_name)
+        if var_symbol is None:
+            raise NameError(repr(var_name))
+
 
 class Interpreter(NodeVisitor):
     def __init__(self, parser):
