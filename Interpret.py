@@ -64,6 +64,9 @@ class SymbolTableBuilder(NodeVisitor):
         if var_symbol is None:
             raise NameError(repr(var_name))
 
+    def visit_ProcedureDecl(self, node):
+        pass
+
 
 class Interpreter(NodeVisitor):
     def __init__(self, parser):
@@ -120,6 +123,9 @@ class Interpreter(NodeVisitor):
         
         self.visit(node.compound_statement)
     
+    def visit_ProcedureDecl(self, node):
+        pass
+
     def visit_VarDecl(self, node):
         pass
     

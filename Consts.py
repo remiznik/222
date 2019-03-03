@@ -34,6 +34,7 @@ PROGRAM       = 'PROGRAM'
 VAR           = 'VAR'
 COLON         = 'COLON'
 COMMA         = 'COMMA'
+PROCEDURE     = 'PROCEDURE'
 EOF           = 'EOF'
 
 RESERVED_KEYWORDS = {
@@ -43,5 +44,6 @@ RESERVED_KEYWORDS = {
     'INTEGER': Token('INTEGER', 'INTEGER'),
     'REAL': Token('REAL', 'REAL'),
     'BEGIN': Token('BEGIN', 'BEGIN'),
+    'PROCEDURE': Token('PROCEDURE', 'PROCEDURE'),
     'END': Token('END', 'END'),
 }
