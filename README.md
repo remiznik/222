@@ -24,6 +24,7 @@ https://ruslanspivak.com/lsbasi-part10/ // good introduce
 #books
 * https://doc.lagout.org/programmation/Pragmatic%20Programmers/Language%20Implementation%20Patterns.pdf
 * http://linux-doc.ru/programming/assembler/book/compilers.pdf
+* Programming Language Pragmatics 4th Edition
 
 #intresing
 * https://github.com/sdmg15/Best-websites-a-programmer-should-visit#building-a-simple-compilerinterpreter
