@@ -9,6 +9,7 @@ https://ruslanspivak.com/lsbasi-part10/ // good introduce
 * https://norasandler.com/2017/11/29/Write-a-Compiler.html
 * https://compilers.iecc.com/crenshaw/ 
 * http://craftinginterpreters.com/
+* https://tomassetti.me/resources-create-programming-languages/
 
 # tools
 * https://preshing.com/20170511/how-to-build-a-cmake-based-project/
